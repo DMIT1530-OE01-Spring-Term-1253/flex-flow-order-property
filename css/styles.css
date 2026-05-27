@@ -1,0 +1,104 @@
+:root {
+    --heading: #1f2937;
+    --body: #4b5563;
+    --border: 1px solid #e5e7eb;
+    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    color: var(--body);
+}
+
+/** utility classes **/
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.inner-container {
+    margin: auto;
+    max-width: 80rem; /**1280px**/
+    padding: 3rem 1rem;
+}
+
+/** typography **/
+
+h1, 
+h2 {
+    color: var(--heading);
+}
+
+h1 {
+    font-weight: 300;
+    font-size: 3rem; /**48px**/
+    margin: 3rem auto 0;
+    text-align: center; 
+}
+
+/** cards **/
+
+/** we're turning our cards into flex containers, but not because we want arrange things side-by-side. Instead, by using 'flex-direction: column;', we can keep things looking the same but now have access to the other flex techniques, like gap and order **/
+
+.card {
+    border: var(--border);
+    border-radius: 0.25rem;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 1rem;
+    padding: 2rem 1rem;
+}
+
+img {
+    border-radius: 0.25rem;
+}
+
+/** 
+on small screen, if we're scrolling through these cards, the user might want some sort heading first to know if they want to keep scrolling. Because the cards have flexbox enabled, we can use the order property **/
+
+/** order property: 
+
+By default, every flex-item has a order property of 0 (zero). Flexbox will arrange the flex-items from the lowest order value to the highest; if they are all equal, it will arrange them according to the order in which they appear in the document.
+
+If we want something to appear first, we can give it an order value less than 0 (zero - the default value). If we want something to appear last, we want something to appear last, we can give an order value greater than 0 (zero). 
+**/
+
+h2 {
+    order: -1;
+    text-align: center;
+}
+p {
+    margin-bottom: 1rem;
+}
+
+@media (min-width: 640px) {
+    /** utility classes **/
+    .flex-container {
+        flex-flow: row wrap; /**shorthand **/
+        /**longhand
+        flex-direction: row;
+        flex-wrap: wrap; **/
+    }
+
+    /** we want two column layout. Note: there is a gutter/gap of 1rem **/
+    .card {
+        width: calc((100% / 2) - (1rem / 2));
+    }
+
+    /** to put the h2 back in its original place, we use the order property. **/
+    h2 {
+        order: 0; /** default value **/
+        margin-top: 1rem;
+        text-align: left;
+    }
+}
+
+@media (min-width: 1080px) {
+    /** we want three column layout. 
+    Note: there is a gutter/gap of 1rem each (2rem) **/
+    .card {
+        width: calc((100% / 3) - (2rem / 3));
+    }
+}
